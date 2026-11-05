@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="bar">
+    <strong>Dashboard</strong>
+    <form method="post" action="/logout">
+      <input type="hidden" name="csrf" value="<%= csrfToken %>">
+      <span><%= username %></span>
+      <button type="submit">Salir</button>
+    </form>
+  </header>
+  <main class="wrap">
+    <section class="stats">
+      <div class="card"><small>Productos</small><b><%= stats.total %></b></div>
+      <div class="card"><small>Unidades en stock</small><b><%= stats.units %></b></div>
+      <div class="card"><small>Valor inventario</small><b><%= stats.inventoryValue.toFixed(2) %> €</b></div>
+    </section>
+    <section class="card">
+      <table>
+        <thead><tr><th>ID</th><th>Nombre</th><th>Categoría</th><th>Precio</th><th>Stock</th></tr></thead>
+        <tbody>
+          <% products.forEach((p) => { %>
+          <tr><td><%= p.id %></td><td><%= p.name %></td><td><%= p.category %></td>
+              <td><%= p.price.toFixed(2) %> €</td><td><%= p.stock %></td></tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>
